@@ -275,5 +275,3 @@ MIT
 - Readme is edited using [Typora](https://typora.io/)
 
 ---
-
-Made with ❤️ by [JairajJangle](https://github.com/JairajJangle)

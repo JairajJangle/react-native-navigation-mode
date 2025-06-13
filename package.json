@@ -65,7 +65,8 @@
   },
   "homepage": "https://github.com/JairajJangle/react-native-navigation-mode#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.6.0",

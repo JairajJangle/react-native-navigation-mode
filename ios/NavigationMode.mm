@@ -1,17 +1,30 @@
 #import "NavigationMode.h"
 
 @implementation NavigationMode
+
 RCT_EXPORT_MODULE()
 
-- (NSNumber *)multiply:(double)a b:(double)b {
-    NSNumber *result = @(a * b);
+- (void)getNavigationMode:(RCTPromiseResolveBlock)resolve
+                   reject:(RCTPromiseRejectBlock)reject {
+    // iOS always uses gesture navigation - handled in TypeScript
+    NSDictionary *result = @{
+        @"type": @"gesture",
+        @"isGestureNavigation": @YES,
+        @"hasNavigationBar": @NO,
+        @"sdkVersion": @([[NSProcessInfo processInfo] operatingSystemVersion].majorVersion),
+        @"deviceModel": @"iOS"
+    };
+    resolve(result);
+}
 
-    return result;
+- (void)isGestureNavigation:(RCTPromiseResolveBlock)resolve
+                     reject:(RCTPromiseRejectBlock)reject {
+    // iOS always uses gesture navigation - handled in TypeScript
+    resolve(@YES);
 }
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
-    (const facebook::react::ObjCTurboModule::InitParams &)params
-{
+    (const facebook::react::ObjCTurboModule::InitParams &)params {
     return std::make_shared<facebook::react::NativeNavigationModeSpecJSI>(params);
 }
 

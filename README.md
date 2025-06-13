@@ -107,8 +107,6 @@ import { getNavigationMode } from 'react-native-navigation-mode';
 // Get comprehensive navigation info
 const navInfo = await getNavigationMode();
 console.log('Navigation type:', navInfo.type); // '3_button', '2_button', 'gesture', or 'unknown'
-console.log('SDK version:', navInfo.sdkVersion);
-console.log('Device model:', navInfo.deviceModel);
 ```
 
 ### React Hook (Recommended)
@@ -128,9 +126,6 @@ export default function NavigationInfo() {
     <View>
       <Text>Navigation Type: {navigationMode?.type}</Text>
       <Text>Gesture Navigation: {navigationMode?.isGestureNavigation ? 'Yes' : 'No'}</Text>
-      <Text>Has Navigation Bar: {navigationMode?.hasNavigationBar ? 'Yes' : 'No'}</Text>
-      <Text>Android SDK: {navigationMode?.sdkVersion}</Text>
-      <Text>Device: {navigationMode?.deviceModel}</Text>
     </View>
   );
 }
@@ -184,9 +179,6 @@ React hook for navigation mode detection with loading and error states.
 | ------------------- | ---------------------------------------------- | ------------------------------------------------ |
 | type                | `'3_button' \| '2_button' \| 'gesture' \| 'unknown'` | Navigation mode type                             |
 | isGestureNavigation | `boolean`                                      | Whether gesture navigation is active             |
-| hasNavigationBar    | `boolean`                                      | Whether device has a navigation bar              |
-| sdkVersion          | `number`                                       | Android SDK version (iOS: iOS version)          |
-| deviceModel         | `string`                                       | Device model name                                |
 | interactionMode     | `number \| undefined`                          | Raw Android interaction mode (0, 1, 2, or -1)   |
 
 ## Platform Support

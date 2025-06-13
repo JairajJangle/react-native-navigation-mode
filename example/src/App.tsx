@@ -52,13 +52,6 @@ export default function App() {
             <Text style={styles.info}>
               Gesture Nav: {navigationMode.isGestureNavigation ? 'Yes' : 'No'}
             </Text>
-            <Text style={styles.info}>
-              Has Nav Bar: {navigationMode.hasNavigationBar ? 'Yes' : 'No'}
-            </Text>
-            <Text style={styles.info}>SDK: {navigationMode.sdkVersion}</Text>
-            <Text style={styles.info}>
-              Device: {navigationMode.deviceModel}
-            </Text>
           </View>
         )}
       </View>

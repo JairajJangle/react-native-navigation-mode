@@ -9,10 +9,7 @@ RCT_EXPORT_MODULE()
     // iOS always uses gesture navigation - handled in TypeScript
     NSDictionary *result = @{
         @"type": @"gesture",
-        @"isGestureNavigation": @YES,
-        @"hasNavigationBar": @NO,
-        @"sdkVersion": @([[NSProcessInfo processInfo] operatingSystemVersion].majorVersion),
-        @"deviceModel": @"iOS"
+        @"isGestureNavigation": @YES
     };
     resolve(result);
 }

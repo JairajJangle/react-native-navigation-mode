@@ -34,13 +34,7 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
             
             val gestureNavEnabled = isGestureNavigationEnabled(context)
             result.putBoolean("isGestureNavigation", gestureNavEnabled)
-            
-            val hasNavigationBar = hasNavigationBar(context)
-            result.putBoolean("hasNavigationBar", hasNavigationBar)
-            
-            result.putInt("sdkVersion", Build.VERSION.SDK_INT)
-            result.putString("deviceModel", Build.MODEL)
-            
+                        
             promise.resolve(result)
         } catch (e: Exception) {
             promise.reject("NAVIGATION_MODE_ERROR", "Failed to get navigation mode: ${e.message}", e)
@@ -98,20 +92,5 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
                 false
             }
         } else false
-    }
-
-    private fun hasNavigationBar(context: Context): Boolean {
-        return try {
-            val resources = context.resources
-            val resourceId = resources.getIdentifier("config_showNavigationBar", "bool", "android")
-            
-            if (resourceId > 0) {
-                resources.getBoolean(resourceId)
-            } else {
-                !ViewConfiguration.get(context).hasPermanentMenuKey()
-            }
-        } catch (e: Exception) {
-            true
-        }
     }
 }

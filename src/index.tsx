@@ -16,9 +16,6 @@ export function getNavigationMode(): Promise<NavigationModeInfo> {
     return Promise.resolve({
       type: 'gesture',
       isGestureNavigation: true,
-      hasNavigationBar: false,
-      sdkVersion: parseInt(Platform.Version as string, 10),
-      deviceModel: 'iOS',
     });
   }
 

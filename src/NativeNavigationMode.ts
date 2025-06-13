@@ -2,12 +2,9 @@ import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
 export interface NavigationModeInfo {
-  interactionMode?: number;
   type: '3_button' | '2_button' | 'gesture' | 'unknown';
   isGestureNavigation: boolean;
-  hasNavigationBar: boolean;
-  sdkVersion: number;
-  deviceModel: string;
+  interactionMode?: number;
 }
 
 export interface Spec extends TurboModule {

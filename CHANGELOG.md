@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/JairajJangle/react-native-navigation-mode/compare/v0.3.0...v0.4.0) (2025-06-13)
+
+
+### Features
+
+* cleanup - removed unnecessary functions ([1693be6](https://github.com/JairajJangle/react-native-navigation-mode/commit/1693be6dc1d34a57d47f51aeda12fb7e45b9df5c))
+
 # [0.3.0](https://github.com/JairajJangle/react-native-navigation-mode/compare/v0.2.0...v0.3.0) (2025-06-13)
 
 

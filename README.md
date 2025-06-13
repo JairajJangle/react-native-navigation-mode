@@ -6,8 +6,8 @@
 
 <table align="center" style="border: none; background: none; border-collapse: collapse;">
   <tr style="border: none; background: none;">
-    <td style="text-align: center; border: none; background: none;"><img src=".github/assets/buttons.png" alt="Visibility Sensor demo" style="max-height: 600px;" /></td>
-    <td style="text-align: center; border: none; background: none;"><img src=".github/assets/gesture.png" alt="Visibility Sensor demo" style="max-height: 600px;" /></td>
+    <td style="text-align: center; border: none; background: none;"><img src=".github/assets/buttons.png" alt="Visibility Sensor demo" style="max-height: 500px;" /></td>
+    <td style="text-align: center; border: none; background: none;"><img src=".github/assets/gesture.png" alt="Visibility Sensor demo" style="max-height: 500px;" /></td>
   </tr>
 </table>
 

@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/react-native-navigation-mode)](https://badge.fury.io/js/react-native-navigation-mode) [![License](https://img.shields.io/github/license/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/blob/main/LICENSE) [![Workflow Status](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml/badge.svg)](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml) ![Android](https://img.shields.io/badge/-Android-555555?logo=android&logoColor=3DDC84) ![iOS](https://img.shields.io/badge/-iOS-555555?logo=apple&logoColor=white) [![GitHub issues](https://img.shields.io/github/issues/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/issues?q=is%3Aopen+is%3Aissue) ![TS](https://img.shields.io/badge/TypeScript-strict_💪-blue) ![Turbo Module](https://img.shields.io/badge/Turbo%20Module-⚡-orange) ![Expo Compatible](https://img.shields.io/badge/Expo-555555?style=flat&logo=expo&logoColor=white) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-native-navigation-mode)
 
-<div style="display: flex; justify-content: center; gap: 50px;">
+<div style="display: flex; justify-content: space-around;">
   <img src=".github/assets/buttons.png" alt="Visibility Sensor demo" style="max-height: 600px;" />
   <img src=".github/assets/gesture.png" alt="Visibility Sensor demo" style="max-height: 600px;" />
 </div>

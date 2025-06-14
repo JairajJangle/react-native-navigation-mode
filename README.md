@@ -2,7 +2,7 @@
 
 🧭 Detect Android navigation mode (3-button, 2-button, or gesture navigation) with native precision using Turbo modules.
 
-[![npm version](https://img.shields.io/npm/v/react-native-navigation-mode)](https://badge.fury.io/js/react-native-navigation-mode) [![License](https://img.shields.io/github/license/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/blob/main/LICENSE) [![Workflow Status](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml/badge.svg)](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml) ![Android](https://img.shields.io/badge/-Android-555555?logo=android&logoColor=3DDC84) ![iOS](https://img.shields.io/badge/-iOS-555555?logo=apple&logoColor=white) [![GitHub issues](https://img.shields.io/github/issues/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/issues?q=is%3Aopen+is%3Aissue) ![TS](https://img.shields.io/badge/TypeScript-strict_💪-blue) ![Turbo Module](https://img.shields.io/badge/Turbo%20Module-⚡-orange) ![Expo Compatible](https://img.shields.io/badge/Expo-555555?style=flat&logo=expo&logoColor=white) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-native-navigation-mode)
+[![npm version](https://img.shields.io/npm/v/react-native-navigation-mode)](https://badge.fury.io/js/react-native-navigation-mode) [![License](https://img.shields.io/github/license/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/blob/main/LICENSE) [![Workflow Status](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml/badge.svg)](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml) ![Android](https://img.shields.io/badge/-Android-555555?logo=android&logoColor=3DDC84) ![iOS](https://img.shields.io/badge/-iOS-555555?logo=apple&logoColor=white) [![GitHub issues](https://img.shields.io/github/issues/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/issues?q=is%3Aopen+is%3Aissue) ![TS](https://img.shields.io/badge/TypeScript-strict_💪-blue) ![Turbo Module](https://img.shields.io/badge/Turbo%20Module-⚡-orange) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-native-navigation-mode)
 
 <table align="center">
   <tr>
@@ -41,7 +41,6 @@
 - 🔄 **Real-time Detection** - Accurate navigation mode identification
 - 📱 **Cross Platform** - Android detection + iOS compatibility
 - 🎣 **React Hooks** - Easy integration with `useNavigationMode()`
-- 🚀 **Expo Compatible** - Works with Expo managed workflow (dev builds)
 - 📦 **Zero Dependencies** - Lightweight and performant
 - 🛡️ **TypeScript** - Full type safety out of the box
 
@@ -58,30 +57,6 @@ Using npm:
 ```sh
 npm install react-native-navigation-mode
 ```
-
-### For Expo Managed Workflow
-
-```sh
-npx expo install react-native-navigation-mode
-```
-
-Add the plugin to your `app.config.js`:
-
-```javascript
-export default {
-  expo: {
-    plugins: ["react-native-navigation-mode"],
-  },
-};
-```
-
-Create a development build:
-
-```sh
-npx expo run:android
-```
-
-> ⚠️ **Note:** This library requires a development build and will NOT work in Expo Go due to native code requirements.
 
 ### For React Native CLI
 
@@ -215,9 +190,8 @@ The library uses multiple detection methods for maximum accuracy:
 ## Notes
 
 1. 🍎 **iOS Behavior** - iOS always returns `isGestureNavigation: true` since iOS doesn't have 3-button navigation
-2. 📱 **Expo Go** - Not supported due to native module requirements. Use development builds instead
-3. ⚡ **Performance** - Turbo module ensures minimal performance impact
-4. 🔄 **Real-time** - Navigation mode is detected at call time, reflecting current device settings
+2. ⚡ **Performance** - Turbo module ensures minimal performance impact
+3. 🔄 **Real-time** - Navigation mode is detected at call time, reflecting current device settings
 
 ## Troubleshooting
 
@@ -226,9 +200,6 @@ The library uses multiple detection methods for maximum accuracy:
 **"TurboModuleRegistry.getEnforcing(...) is not a function"**
 - Ensure you're using React Native 0.68+ with new architecture enabled
 - For older RN versions, the module will fallback gracefully
-
-**Expo Go not working**
-- This is expected. Create a development build with `npx expo run:android`
 
 **Always returns 'unknown' on Android**
 - Check if your device/emulator supports the navigation mode APIs
@@ -261,9 +232,6 @@ MIT
 ## ❤️ Thanks to
 
 - Module built using [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
-- Inspiration from various Android navigation detection attempts in the community
-- React Native team for Turbo Modules architecture
-- Expo team for config plugin support
 - Readme is edited using [Typora](https://typora.io/)
 
 ---

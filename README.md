@@ -33,6 +33,51 @@
     </tr>
   </table>
 </div>
+## 🤔 Why This Library?
+
+Android devices can use different navigation modes, but detecting which one is active has been a major pain point for React Native developers. Most existing solutions rely on unreliable workarounds:
+
+### ❌ Common Bad Approaches
+
+- **Screen dimension calculations** - Breaks on different screen sizes and orientations
+- **Safe area inset guessing** - Inconsistent across devices and Android versions
+- **Margin-based detection** - Fragile and depends on UI layout changes
+- **Manual device databases** - Impossible to maintain for all Android devices
+
+### ✅ This Library's Solution
+
+This library uses **official Android APIs** to directly query the system's navigation configuration:
+
+- **`config_navBarInteractionMode`** - The actual system resource Android uses internally
+- **Settings.Secure provider** - Fallback method for reliable detection
+- **Zero guesswork** - No calculations, no assumptions, just direct system queries
+
+### 🚀 Critical for Edge-to-Edge Mode
+
+With Android 15 enforcing edge-to-edge display for apps targeting API 35 and Google mandating this for Play Store updates starting August 31, 2025, proper navigation detection is now **essential**:
+
+- **Edge-to-edge enforcement** - Android 16 will remove the opt-out entirely
+- **Expo SDK 53+** - New projects use edge-to-edge by default
+- **React Native 0.79+** - Built-in support for 16KB page size and edge-to-edge
+- **Safe area management** - Critical for preventing content overlap with system bars
+
+### Real-World Impact
+
+```typescript
+// Before: Unreliable dimension-based guessing
+const isGesture = screenHeight === windowHeight; // 😢 Breaks easily
+
+// After: Direct system detection  
+const isGesture = await isGestureNavigation(); // 🎯 Always accurate
+```
+
+**Perfect for:**
+
+- 🎨 Adaptive UI layouts based on navigation type
+- 📱 Bottom sheet positioning and safe areas
+- 🧭 Navigation-aware component design
+- 🔄 Edge-to-edge layout compatibility
+- 📊 Analytics and user experience tracking
 
 ## ✨ Features
 

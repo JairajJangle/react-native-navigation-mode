@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.0.0...v1.0.1) (2025-06-15)
+
+
+### Bug Fixes
+
+* version bump due to important readme and metadata updates ([376ef37](https://github.com/JairajJangle/react-native-navigation-mode/commit/376ef37fc84528d06239ef2098ac99661d195fb1))
+
 # [1.0.0](https://github.com/JairajJangle/react-native-navigation-mode/compare/v0.4.0...v1.0.0) (2025-06-14)
 
 

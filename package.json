@@ -43,9 +43,12 @@
   "keywords": [
     "react-native",
     "android",
+    "ios",
     "navigation",
     "gesture",
-    "turbo-module"
+    "navigation-buttons",
+    "turbo-module",
+    "native"
   ],
   "repository": {
     "type": "git",

@@ -10,8 +10,6 @@
     <td align="center"><img src=".github/assets/gesture.png" alt="Visibility Sensor demo" height="600"></td>
   </tr>
 </table>
-
-
 <div align="center">
   <table>
     <tr>
@@ -33,6 +31,8 @@
     </tr>
   </table>
 </div>
+
+
 ## 🤔 Why This Library?
 
 Android devices can use different navigation modes, but detecting which one is active has been a major pain point for React Native developers. Most existing solutions rely on unreliable workarounds:

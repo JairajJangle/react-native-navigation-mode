@@ -47,6 +47,9 @@
     "navigation",
     "gesture",
     "navigation-buttons",
+    "edge-to-edge",
+    "navigation-bar",
+    "react-native-edge-to-edge",
     "turbo-module",
     "native"
   ],

@@ -32,6 +32,7 @@
   </table>
 </div>
 
+---
 
 ## 🤔 Why This Library?
 
@@ -59,7 +60,7 @@ With Android 15 enforcing edge-to-edge display for apps targeting API 35 and Goo
 - **Edge-to-edge enforcement** - Android 16 will remove the opt-out entirely
 - **Expo SDK 53+** - New projects use edge-to-edge by default
 - **React Native 0.79+** - Built-in support for 16KB page size and edge-to-edge
-- **Safe area management** - Critical for preventing content overlap with system bars
+- **Safe area management** - Critical for preventing content overlap with system bars (especially noticeable in 3-button navigation mode).
 
 ### Real-World Impact
 
@@ -88,6 +89,7 @@ const isGesture = await isGestureNavigation(); // 🎯 Always accurate
 - 🎣 **React Hooks** - Easy integration with `useNavigationMode()`
 - 📦 **Zero Dependencies** - Lightweight and performant
 - 🛡️ **TypeScript** - Full type safety out of the box
+- ↕️ **Edge To Edge Support** - Full support for `react-native-edge-to-edge`
 
 ## Installation
 

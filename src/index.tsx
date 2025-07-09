@@ -11,7 +11,8 @@ export type { NavigationModeInfo };
  * Returns navigation type, interaction mode, and device info
  */
 export function getNavigationMode(): Promise<NavigationModeInfo> {
-  if (Platform.OS === 'ios') {
+  // null check is redundant as it's always null for iOS but it's there to satisfy TypeScript
+  if (Platform.OS === 'ios' || NavigationModeModule === null) {
     // iOS always uses gesture navigation (no 3-button navigation exists)
     return Promise.resolve({
       type: 'gesture',
@@ -19,6 +20,7 @@ export function getNavigationMode(): Promise<NavigationModeInfo> {
     });
   }
 
+  // Only call native module on Android
   return NavigationModeModule.getNavigationMode();
 }
 
@@ -27,11 +29,13 @@ export function getNavigationMode(): Promise<NavigationModeInfo> {
  * @returns Promise<boolean> - true if gesture navigation is active
  */
 export function isGestureNavigation(): Promise<boolean> {
-  if (Platform.OS === 'ios') {
+  // null check is redundant as it's always null for iOS but it's there to satisfy TypeScript
+  if (Platform.OS === 'ios' || NavigationModeModule === null) {
     // iOS always uses gesture navigation
     return Promise.resolve(true);
   }
 
+  // Only call native module on Android
   return NavigationModeModule.isGestureNavigation();
 }
 

@@ -1,9 +1,9 @@
-#import <NavigationModeSpec/NavigationModeSpec.h>
+// Placeholder header for iOS - actual functionality handled in JavaScript
+// This library only provides native functionality on Android
 
-NS_ASSUME_NONNULL_BEGIN
+#ifndef NavigationMode_h
+#define NavigationMode_h
 
-@interface NavigationMode : NSObject <NativeNavigationModeSpec>
+// Empty placeholder - no native iOS implementation needed
 
-@end
-
-NS_ASSUME_NONNULL_END
+#endif /* NavigationMode_h */

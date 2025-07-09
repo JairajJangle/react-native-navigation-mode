@@ -13,7 +13,8 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "11.0" }
   s.source       = { :git => package["repository"]["url"], :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m,mm}"
-
+  # No source files needed for iOS since we handle everything in JS
+  s.source_files = "ios/NavigationMode.h"
+  
   install_modules_dependencies(s)
 end

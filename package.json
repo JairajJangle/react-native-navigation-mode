@@ -1,6 +1,6 @@
 {
   "name": "react-native-navigation-mode",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Detect Android navigation mode (3-button, 2-button, or gesture)",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",

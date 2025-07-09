@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.0.3...v1.0.4) (2025-07-09)
+
+
+### Bug Fixes
+
+* fixed ios build issue due to missing spec file - removed the need for it ([68c305e](https://github.com/JairajJangle/react-native-navigation-mode/commit/68c305e3f29a7743942199f242a4b43f23916c2c))
+
 ## [1.0.3](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.0.2...v1.0.3) (2025-06-16)
 
 

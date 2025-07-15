@@ -85,6 +85,7 @@ const isGesture = await isGestureNavigation(); // 🎯 Always accurate
 - 🎯 **Direct Native Detection** - No hacky workarounds or dimension-based guessing
 - ⚡ **Turbo Module** - Built with the latest React Native architecture
 - 🔄 **Real-time Detection** - Accurate navigation mode identification
+- 📏 **Navigation Bar Height** - Get exact navigation bar height in dp for precise UI calculations
 - 📱 **Cross Platform** - Android detection + iOS compatibility
 - 🎣 **React Hooks** - Easy integration with `useNavigationMode()`
 - 📦 **Zero Dependencies** - Lightweight and performant
@@ -131,6 +132,16 @@ const navInfo = await getNavigationMode();
 console.log('Navigation type:', navInfo.type); // '3_button', '2_button', 'gesture', or 'unknown'
 ```
 
+### Navigation Bar Height
+
+```typescript
+import { getNavigationBarHeight } from 'react-native-navigation-mode';
+
+// Get navigation bar height in dp
+const height = await getNavigationBarHeight();
+console.log('Navigation bar height:', height); // number (dp)
+```
+
 ### React Hook (Recommended)
 
 ```typescript
@@ -166,7 +177,7 @@ export default function AdaptiveUI() {
   return (
     <View 
       style={{
-        paddingBottom: navigationMode?.isGestureNavigation ? 34 : 48 // Adjust for gesture nav
+        paddingBottom: navigationMode?.navigationBarHeight
       }}
     >
       {/* Your content */}
@@ -187,6 +198,10 @@ Returns comprehensive navigation mode information.
 
 Quick check if device is using gesture navigation.
 
+#### `getNavigationBarHeight(): Promise<number>`
+
+Returns the navigation bar height in density-independent pixels (dp).
+
 ### Hooks
 
 #### `useNavigationMode(): { navigationMode, loading, error }`
@@ -197,24 +212,27 @@ React hook for navigation mode detection with loading and error states.
 
 #### `NavigationModeInfo`
 
-| Property            | Type                                           | Description                                      |
-| ------------------- | ---------------------------------------------- | ------------------------------------------------ |
-| type                | `'3_button' \| '2_button' \| 'gesture' \| 'unknown'` | Navigation mode type                             |
-| isGestureNavigation | `boolean`                                      | Whether gesture navigation is active             |
-| interactionMode     | `number \| undefined`                          | Raw Android interaction mode (0, 1, 2, or -1)   |
+| Property            | Type                                              | Description                                   |
+| ------------------- | ------------------------------------------------- | --------------------------------------------- |
+| type                | `'3_button' | '2_button' | 'gesture' | 'unknown'` | Navigation mode type                          |
+| isGestureNavigation | `boolean`                                         | Whether gesture navigation is active          |
+| interactionMode     | `number | undefined`                              | Raw Android interaction mode (0, 1, 2, or -1) |
+| navigationBarHeight | `number | undefined`                              | Navigation bar height in dp                   |
 
 ## Platform Support
 
 | Platform | Support | Notes |
 |----------|---------|-------|
-| Android  | ✅ Full | Detects all navigation modes via native Android APIs |
-| iOS      | ✅ Compatible | Always returns `gesture` (iOS uses gesture navigation) |
+| Android  | ✅ Full | Detects all navigation modes and navigation bar height via native Android APIs |
+| iOS      | ✅ Compatible | Always returns `gesture` and `navigationBarHeight: 0` (iOS uses gesture navigation) |
 
 ### Android Compatibility
 
 - **API 21+** - Basic navigation bar detection
 - **API 29+** - Full navigation mode detection (`config_navBarInteractionMode`)
 - **All versions** - Fallback detection methods included
+- **API 30+** - WindowInsets-based navigation bar height detection
+- **API 24-29** - Resource-based navigation bar height fallback
 
 ## How It Works
 
@@ -236,7 +254,7 @@ The library uses multiple detection methods for maximum accuracy:
 
 ## Notes
 
-1. 🍎 **iOS Behavior** - iOS always returns `isGestureNavigation: true` since iOS doesn't have 3-button navigation
+1. 1. 🍎 **iOS Behavior** - iOS always returns `isGestureNavigation: true` and `navigationBarHeight: 0` since iOS doesn't have Android-style navigation bars
 2. ⚡ **Performance** - Turbo module ensures minimal performance impact
 3. 🔄 **Real-time** - Navigation mode is detected at call time, reflecting current device settings
 

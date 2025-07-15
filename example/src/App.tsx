@@ -1,152 +1,256 @@
 import { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button, Platform } from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import {
   getNavigationMode,
   isGestureNavigation,
+  getNavigationBarHeight,
   useNavigationMode,
   type NavigationModeInfo,
 } from 'react-native-navigation-mode';
+import { styles } from './app.styles';
 
 export default function App() {
-  const [navMode, setNavMode] = useState<NavigationModeInfo | null>(null);
-  const [isGesture, setIsGesture] = useState<boolean | null>(null);
-
   // Using the hook
   const { navigationMode, loading, error } = useNavigationMode();
 
+  const [navMode, setNavMode] = useState<NavigationModeInfo | null>(null);
+  const [screenWidth] = useState(Dimensions.get('window').width);
+  const [refreshing, setRefreshing] = useState(false);
+
+  // Set navMode from hook when it loads
+  useEffect(() => {
+    if (navigationMode) {
+      setNavMode(navigationMode);
+    }
+  }, [navigationMode]);
+
   const checkNavigationMode = async () => {
     try {
+      setRefreshing(true);
+
+      // Using manual method to get navigation mode
       const mode = await getNavigationMode();
+      const gesture = await isGestureNavigation();
+      const height = await getNavigationBarHeight();
+
+      setNavMode({
+        isGestureNavigation: gesture,
+        navigationBarHeight: height,
+        interactionMode: mode.interactionMode,
+        type: mode.type,
+      });
+
       setNavMode(mode);
     } catch (err) {
       console.error('Error getting navigation mode:', err);
+    } finally {
+      setRefreshing(false);
     }
   };
 
   const checkGestureNavigation = async () => {
     try {
       const gesture = await isGestureNavigation();
-      setIsGesture(gesture);
+      setNavMode((prev) =>
+        prev ? { ...prev, isGestureNavigation: gesture } : prev
+      );
     } catch (err) {
       console.error('Error checking gesture navigation:', err);
     }
   };
 
-  useEffect(() => {
-    checkNavigationMode();
-    checkGestureNavigation();
-  }, []);
+  const checkNavigationBarHeight = async () => {
+    try {
+      const height = await getNavigationBarHeight();
+      setNavMode((prev) =>
+        prev ? { ...prev, navigationBarHeight: height } : prev
+      );
+    } catch (err) {
+      console.error('Error getting navigation bar height:', err);
+    }
+  };
+
+  const getNavigationTypeColor = (type: string) => {
+    switch (type) {
+      case '3_button':
+        return '#3498db';
+      case '2_button':
+        return '#2ecc71';
+      case 'gesture':
+        return '#9b59b6';
+      default:
+        return '#95a5a6';
+    }
+  };
+
+  const getNavigationTypeIcon = (type: string) => {
+    switch (type) {
+      case '3_button':
+        return '⚪⚪⚪';
+      case '2_button':
+        return '⚪⚪';
+      case 'gesture':
+        return '📱';
+      default:
+        return '❓';
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Navigation Mode Detector</Text>
-      <Text style={styles.platform}>Platform: {Platform.OS}</Text>
+      <StatusBar barStyle="dark-content" backgroundColor="#f8f9fa" />
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Using Hook:</Text>
-        {loading && <Text style={styles.loading}>Loading...</Text>}
-        {error && <Text style={styles.error}>Error: {error.message}</Text>}
-        {navigationMode && (
-          <View style={styles.infoContainer}>
-            <Text style={styles.info}>Type: {navigationMode.type}</Text>
-            <Text style={styles.info}>
-              Gesture Nav: {navigationMode.isGestureNavigation ? 'Yes' : 'No'}
-            </Text>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.title}>🧭 Navigation Mode</Text>
+          <Text style={styles.subtitle}>Detect navigation mode info</Text>
+        </View>
+
+        {/* Current Navigation Mode */}
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>🎯 Current Navigation Mode</Text>
+
+          {loading && (
+            <View style={styles.loadingContainer}>
+              <Text style={styles.loadingText}>Detecting...</Text>
+            </View>
+          )}
+
+          {error && (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>❌ {error.message}</Text>
+            </View>
+          )}
+
+          {navMode && !loading && (
+            <View style={styles.navigationInfo}>
+              <View
+                style={[
+                  styles.navigationBadge,
+                  { backgroundColor: getNavigationTypeColor(navMode.type) },
+                ]}
+              >
+                <Text style={styles.navigationIcon}>
+                  {getNavigationTypeIcon(navMode.type)}
+                </Text>
+                <Text style={styles.navigationTypeText}>
+                  {navMode.type?.replace?.('_', '-')?.toUpperCase?.()}
+                </Text>
+              </View>
+
+              <View style={styles.detailsGrid}>
+                <View style={styles.detailItem}>
+                  <Text style={styles.detailLabel}>Gesture Navigation</Text>
+                  <Text
+                    style={[
+                      styles.detailValue,
+                      // eslint-disable-next-line react-native/no-inline-styles
+                      {
+                        color: navMode.isGestureNavigation
+                          ? '#27ae60'
+                          : '#e74c3c',
+                      },
+                    ]}
+                  >
+                    {navMode.isGestureNavigation ? '✅ Yes' : '❌ No'}
+                  </Text>
+                </View>
+
+                {navMode.interactionMode !== undefined && (
+                  <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Interaction Mode</Text>
+                    <Text style={styles.detailValue}>
+                      {navMode.interactionMode}
+                    </Text>
+                  </View>
+                )}
+
+                {navMode.navigationBarHeight !== undefined && (
+                  <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Height</Text>
+                    <Text style={styles.detailValue}>
+                      {navMode.navigationBarHeight}dp
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </View>
+          )}
+        </View>
+
+        {/* Navigation Bar Visualization */}
+        {navMode?.navigationBarHeight && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>📏 Navigation Bar Height</Text>
+            <View style={styles.visualizationContainer}>
+              <View
+                style={[
+                  styles.navBarVisualization,
+                  {
+                    height: Math.max(navMode?.navigationBarHeight || 0, 20),
+                    width: screenWidth * 0.7,
+                  },
+                ]}
+              >
+                <Text style={styles.visualizationText}>
+                  {navMode?.navigationBarHeight}dp
+                </Text>
+              </View>
+              <Text style={styles.visualizationLabel}>
+                Actual navigation bar height
+              </Text>
+            </View>
           </View>
         )}
-      </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Manual Check:</Text>
-        {navMode && (
-          <View style={styles.infoContainer}>
-            <Text style={styles.info}>Navigation Type: {navMode.type}</Text>
-            <Text style={styles.info}>
-              Interaction Mode: {navMode.interactionMode}
+        <View style={styles.actionContainerTopPaddingView} />
+
+        {/* Actions */}
+        <View
+          style={{
+            ...styles.actionsContainer,
+            marginBottom: (navMode?.navigationBarHeight || 0) / 2,
+          }}
+        >
+          <TouchableOpacity
+            style={[styles.actionButton, styles.primaryButton]}
+            onPress={checkNavigationMode}
+            disabled={refreshing}
+          >
+            <Text style={styles.primaryButtonText}>
+              {refreshing ? '🔄 Refreshing...' : '🔄 Refresh All'}
             </Text>
-            <Text style={styles.info}>
-              Is Gesture: {navMode.isGestureNavigation ? 'Yes' : 'No'}
-            </Text>
+          </TouchableOpacity>
+
+          <View style={styles.secondaryActions}>
+            <TouchableOpacity
+              style={styles.secondaryButton}
+              onPress={checkGestureNavigation}
+            >
+              <Text style={styles.secondaryButtonText}>Check Gesture</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.secondaryButton}
+              onPress={checkNavigationBarHeight}
+            >
+              <Text style={styles.secondaryButtonText}>Check Height</Text>
+            </TouchableOpacity>
           </View>
-        )}
-        {isGesture !== null && (
-          <Text style={styles.info}>
-            Quick Gesture Check: {isGesture ? 'Yes' : 'No'}
-          </Text>
-        )}
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <Button title="Refresh Navigation Mode" onPress={checkNavigationMode} />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Check Gesture Navigation"
-          onPress={checkGestureNavigation}
-        />
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#f5f5f5',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 10,
-    color: '#333',
-  },
-  platform: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 30,
-  },
-  section: {
-    marginBottom: 25,
-    padding: 15,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    width: '100%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#333',
-  },
-  infoContainer: {
-    gap: 5,
-  },
-  info: {
-    fontSize: 14,
-    color: '#555',
-    paddingVertical: 2,
-  },
-  loading: {
-    fontSize: 14,
-    color: '#888',
-    fontStyle: 'italic',
-  },
-  error: {
-    fontSize: 14,
-    color: '#e74c3c',
-  },
-  buttonContainer: {
-    marginBottom: 10,
-    width: '100%',
-  },
-});

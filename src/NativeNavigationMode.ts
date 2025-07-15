@@ -5,11 +5,13 @@ export interface NavigationModeInfo {
   type: '3_button' | '2_button' | 'gesture' | 'unknown';
   isGestureNavigation: boolean;
   interactionMode?: number;
+  navigationBarHeight?: number;
 }
 
 export interface Spec extends TurboModule {
   getNavigationMode(): Promise<NavigationModeInfo>;
   isGestureNavigation(): Promise<boolean>;
+  getNavigationBarHeight(): Promise<number>;
 }
 
 // Only get the native module on Android

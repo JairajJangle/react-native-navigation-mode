@@ -1,14 +1,15 @@
 package com.navigationmode
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.os.Build
 import android.provider.Settings
-import android.view.ViewConfiguration
+import android.view.WindowInsets
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.WritableMap
-import com.facebook.react.bridge.Arguments
 import com.facebook.react.module.annotations.ReactModule
 
 @ReactModule(name = NavigationModeModule.NAME)
@@ -21,10 +22,48 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
 
     override fun getName(): String = NAME
 
+    private fun getNavigationBarHeight(context: Context): Int {
+        // Try to get Activity for WindowInsets
+        val activity = if (context is Activity) context else reactApplicationContext.currentActivity
+        val density = context.resources.displayMetrics.density // Get device density
+        
+        if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val insets = activity.window.decorView.rootWindowInsets
+            if (insets != null) {
+                val navBar = insets.getInsets(WindowInsets.Type.navigationBars())
+                return (navBar.bottom / density).toInt() // Convert pixels to dp
+            }
+        }
+        
+        // Fallback to resource-based approach for API < 30
+        val resources = context.resources
+        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        return if (resourceId > 0) {
+            // getDimensionPixelSize returns pixels, convert to dp
+            (resources.getDimensionPixelSize(resourceId) / density).toInt()
+        } else {
+            0 // Fallback for devices without a navigation bar
+        }
+    }
+
+    override fun getNavigationBarHeight(promise: Promise) {
+        try {
+            val context = reactApplicationContext
+            val navBarHeight = getNavigationBarHeight(context)
+            promise.resolve(navBarHeight)
+        } catch (e: Exception) {
+            promise.reject("NAV_BAR_HEIGHT_ERROR", "Failed to get navigation bar height: ${e.message}", e)
+        }
+    }
+
     override fun getNavigationMode(promise: Promise) {
         try {
             val result = Arguments.createMap()
             val context = reactApplicationContext
+            
+            // Use reactApplicationContext for navigation bar height
+            val navBarHeight = getNavigationBarHeight(context)
+            result.putInt("navigationBarHeight", navBarHeight)
             
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val navBarInteractionMode = getNavBarInteractionMode(context)

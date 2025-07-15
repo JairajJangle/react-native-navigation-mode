@@ -17,6 +17,7 @@ export function getNavigationMode(): Promise<NavigationModeInfo> {
     return Promise.resolve({
       type: 'gesture',
       isGestureNavigation: true,
+      navigationBarHeight: 0, // iOS doesn't have a navigation bar like Android
     });
   }
 
@@ -37,6 +38,21 @@ export function isGestureNavigation(): Promise<boolean> {
 
   // Only call native module on Android
   return NavigationModeModule.isGestureNavigation();
+}
+
+/**
+ * Get the navigation bar height in dp
+ * @returns Promise<number> - navigation bar height in dp
+ */
+export function getNavigationBarHeight(): Promise<number> {
+  // null check is redundant as it's always null for iOS but it's there to satisfy TypeScript
+  if (Platform.OS === 'ios' || NavigationModeModule === null) {
+    // iOS doesn't have a navigation bar like Android
+    return Promise.resolve(0);
+  }
+
+  // Only call native module on Android
+  return NavigationModeModule.getNavigationBarHeight();
 }
 
 /**
@@ -82,5 +98,6 @@ export function useNavigationMode() {
 export default {
   getNavigationMode,
   isGestureNavigation,
+  getNavigationBarHeight,
   useNavigationMode,
 } as const;

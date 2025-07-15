@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.0.4...v1.1.0) (2025-07-15)
+
+
+### Features
+
+* added function to get navigation bar height ([ade038b](https://github.com/JairajJangle/react-native-navigation-mode/commit/ade038bd5daf80fa984b7b690fb551a191a22d60))
+
 ## [1.0.4](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.0.3...v1.0.4) (2025-07-09)
 
 

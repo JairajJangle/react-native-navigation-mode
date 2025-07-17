@@ -167,10 +167,10 @@ console.log('Navigation bar height:', height); // number (dp)
 | ------------------- | ----------------------------------------------------------- | --------------------------------------------------------- |
 | type                | `'3_button'` or `'2_button'` or `'gesture'` or  `'unknown'` | 4 possible Android navigation modes that can be detected. |
 | isGestureNavigation | `boolean`                                                   | Whether gesture navigation is active.                     |
-| interactionMode     | `number` or `undefined`                                     | See [Navigation Mode Values](#navigation-mode-values)     |
+| interactionMode     | `number` or `undefined`                                     | See [Interaction Mode Values](#interaction-mode-values)     |
 | navigationBarHeight | `number` or `undefined`                                     | Navigation bar height in density-independent pixels (dp). |
 
-### Navigation Mode Values
+### Interaction Mode Values
 
 | Android Mode | Type       | Description                                         |
 | ------------ | ---------- | --------------------------------------------------- |

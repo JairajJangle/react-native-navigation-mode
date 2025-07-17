@@ -97,11 +97,11 @@ export default function App() {
 
 - Returned property types:
 
-| Property      | Type                        | Description                                                  |
-| ------------- | --------------------------- | ------------------------------------------------------------ |
-| navigatioMode | `NavigationModeInfo | null` | All properties mentioned in [NavigationModeInfo](#navigationmodeinfo). |
-| loading       | `boolean`                   | Indicates if navigation mode info is being fetched.          |
-| error         | `Error`                     | Typescript error object containing the cause of the error.   |
+| Property      | Type                           | Description                                                  |
+| ------------- | ------------------------------ | ------------------------------------------------------------ |
+| navigatioMode | `NavigationModeInfo` or `null` | All properties mentioned in [NavigationModeInfo](#navigationmodeinfo). |
+| loading       | `boolean`                      | Indicates if navigation mode info is being fetched.          |
+| error         | `Error`                        | Typescript error object containing the cause of the error.   |
 
 The easiest way to detect navigation mode with loading and error states.
 
@@ -163,12 +163,12 @@ console.log('Navigation bar height:', height); // number (dp)
 
 #### `NavigationModeInfo`
 
-| Property            | Type                                              | Description                                               |
-| ------------------- | ------------------------------------------------- | --------------------------------------------------------- |
-| type                | `'3_button' | '2_button' | 'gesture' | 'unknown'` | 4 possible Android navigation modes that can be detected. |
-| isGestureNavigation | `boolean`                                         | Whether gesture navigation is active.                     |
-| interactionMode     | `number | undefined`                              | See [Navigation Mode Values](#navigation-mode-values)       |
-| navigationBarHeight | `number | undefined`                              | Navigation bar height in density-independent pixels (dp). |
+| Property            | Type                                                        | Description                                               |
+| ------------------- | ----------------------------------------------------------- | --------------------------------------------------------- |
+| type                | `'3_button'` or `'2_button'` or `'gesture'` or  `'unknown'` | 4 possible Android navigation modes that can be detected. |
+| isGestureNavigation | `boolean`                                                   | Whether gesture navigation is active.                     |
+| interactionMode     | `number` or `undefined`                                     | See [Navigation Mode Values](#navigation-mode-values)     |
+| navigationBarHeight | `number` or `undefined`                                     | Navigation bar height in density-independent pixels (dp). |
 
 ### Navigation Mode Values
 

@@ -20,6 +20,9 @@
     "cpp",
     "*.podspec",
     "react-native.config.js",
+    "expo-module.config.json",
+    "app.plugin.js",
+    "plugin/src",
     "!ios/build",
     "!android/build",
     "!android/gradle",
@@ -73,6 +76,7 @@
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.22.0",
     "@evilmartians/lefthook": "^1.5.0",
+    "@expo/config-plugins": "^10.1.2",
     "@react-native-community/cli": "15.0.0-alpha.2",
     "@react-native/babel-preset": "0.79.5",
     "@react-native/eslint-config": "0.79.5",
@@ -99,8 +103,14 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
+    "expo": "*",
     "react": "*",
     "react-native": ">=0.77.0"
+  },
+  "peerDependenciesMeta": {
+    "expo": {
+      "optional": true
+    }
   },
   "workspaces": [
     "example"

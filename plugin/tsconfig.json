@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "rootDir": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2019",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "verbatimModuleSyntax": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/__tests__/**/*"]
+}

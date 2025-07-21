@@ -1,0 +1,8 @@
+{
+  "ios": {
+    "infoPlist": {}
+  },
+  "android": {
+    "minSdkVersion": 24
+  }
+}

@@ -1,3 +1,10 @@
+# [1.2.0-beta.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.1.1...v1.2.0-beta.1) (2025-07-21)
+
+
+### Features
+
+* added support for expo managed workflows ([b60fc17](https://github.com/JairajJangle/react-native-navigation-mode/commit/b60fc17bbfb8d2682d5bc4c3840ce085c1d94a0a))
+
 ## [1.1.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.1.0...v1.1.1) (2025-07-17)
 
 

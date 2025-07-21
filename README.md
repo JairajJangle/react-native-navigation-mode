@@ -2,7 +2,7 @@
 
 🧭 Detect Android navigation mode (3-button, 2-button, or gesture navigation) with native precision using Turbo modules.
 
-[![npm version](https://img.shields.io/npm/v/react-native-navigation-mode)](https://badge.fury.io/js/react-native-navigation-mode) [![License](https://img.shields.io/github/license/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/blob/main/LICENSE) [![Workflow Status](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml/badge.svg)](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml) ![Android](https://img.shields.io/badge/-Android-555555?logo=android&logoColor=3DDC84) ![iOS](https://img.shields.io/badge/-iOS-555555?logo=apple&logoColor=white) [![GitHub issues](https://img.shields.io/github/issues/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/issues?q=is%3Aopen+is%3Aissue) ![TS](https://img.shields.io/badge/TypeScript-strict_💪-blue) ![Turbo Module](https://img.shields.io/badge/Turbo%20Module-⚡-orange) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-native-navigation-mode)
+[![npm version](https://img.shields.io/npm/v/react-native-navigation-mode)](https://badge.fury.io/js/react-native-navigation-mode) [![License](https://img.shields.io/github/license/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/blob/main/LICENSE) [![Workflow Status](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml/badge.svg)](https://github.com/JairajJangle/react-native-navigation-mode/actions/workflows/ci.yml) ![Android](https://img.shields.io/badge/-Android-555555?logo=android&logoColor=3DDC84) ![iOS](https://img.shields.io/badge/-iOS-555555?logo=apple&logoColor=white) [![GitHub issues](https://img.shields.io/github/issues/JairajJangle/react-native-navigation-mode)](https://github.com/JairajJangle/react-native-navigation-mode/issues?q=is%3Aopen+is%3Aissue) ![TS](https://img.shields.io/badge/TypeScript-strict_💪-blue) ![Turbo Module](https://img.shields.io/badge/Turbo%20Module-⚡-orange) ![Expo](https://img.shields.io/badge/Expo-SDK_52+-000020?logo=expo) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-native-navigation-mode)
 
 <table align="center">
   <tr>
@@ -45,10 +45,13 @@
 - 📦 **Zero Dependencies** - Lightweight and performant
 - 🛡️ **TypeScript** - Full type safety out of the box
 - ↕️ **Edge To Edge Support** - Full support for `react-native-edge-to-edge`
+- 📲 **Expo Support** - Works with Expo SDK 52+ managed workflow and development builds
 
 ## 🚀 Quick Start
 
 ### Installation
+
+#### React Native (Bare Workflow)
 
 Using yarn:
 
@@ -63,6 +66,44 @@ npm install react-native-navigation-mode
 ```
 
 > **Note:** Auto-linking should handle setup automatically for all newer RN versions.
+
+#### Expo (Managed Workflow)
+
+```sh
+npx expo install react-native-navigation-mode
+```
+
+##### Expo Configuration
+
+Add the plugin to your `app.json` or `app.config.ts`:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      "react-native-navigation-mode"
+    ]
+  }
+}
+```
+
+For bare workflow or custom native code, you'll need to prebuild:
+
+```sh
+npx expo prebuild
+```
+
+##### Development Builds
+
+Since this library contains native code, it requires a custom development build. You cannot use it with standard Expo Go.
+
+#### Requirements
+
+- **React Native**: 0.77.0+
+- **Expo SDK**: 52+ (for managed workflow)
+- **Android**: API 21+ (Android 5.0+)
+- **iOS**: Any version (returns gesture navigation)
+- **New Architecture**: Required (enabled by default in RN 0.77+ and Expo SDK 52+)
 
 ---
 
@@ -275,7 +316,7 @@ This library uses **official Android APIs** to directly query the system's navig
 With Android 15 enforcing edge-to-edge display for apps targeting API 35 and Google mandating this for Play Store updates starting August 31, 2025, proper navigation detection is now **essential**:
 
 - **Edge-to-edge enforcement** - Android 16 will remove the opt-out entirely
-- **Expo SDK 53+** - New projects use edge-to-edge by default
+- **Expo SDK 52+** - New projects use edge-to-edge by default
 - **React Native 0.79+** - Built-in support for 16KB page size and edge-to-edge
 - **Safe area management** - Critical for preventing content overlap with system bars
 
@@ -307,6 +348,7 @@ const isGesture = await isGestureNavigation(); // 🎯 Always accurate
 | -------- | ------------ | ------------------------------------------------------------ |
 | Android  | ✅ Full       | Detects all navigation modes and navigation bar height via native Android APIs |
 | iOS      | ✅ Compatible | Always returns `gesture` and `navigationBarHeight: 0` (iOS uses gesture navigation) |
+| Expo     | ✅ Full       | Supported in managed workflow with SDK 52+                   |
 
 ### Android Compatibility
 
@@ -351,6 +393,12 @@ The library uses multiple detection methods for maximum accuracy:
 
 - This is normal on devices without navigation bars (some tablets)
 - On older Android versions, fallback detection may not work on all devices
+
+**Expo: "Package does not contain a valid config plugin"**
+
+- Ensure you've installed the latest version of the library
+- Try clearing your cache: `npx expo start --clear`
+- Make sure the plugin is added to your `app.json`
 
 ## 🤝 Contributing
 

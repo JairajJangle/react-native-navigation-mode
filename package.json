@@ -4,14 +4,6 @@
   "description": "Detect Android navigation mode (3-button, 2-button, or gesture)",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
-  "exports": {
-    ".": {
-      "source": "./src/index.tsx",
-      "types": "./lib/typescript/src/index.d.ts",
-      "default": "./lib/module/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "files": [
     "src",
     "lib",
@@ -22,7 +14,7 @@
     "react-native.config.js",
     "expo-module.config.json",
     "app.plugin.js",
-    "plugin/src",
+    "plugin/build",
     "!ios/build",
     "!android/build",
     "!android/gradle",

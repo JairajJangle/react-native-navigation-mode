@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.1.1...v1.2.0) (2025-07-21)
+
+
+### Bug Fixes
+
+* expo managed workflow incorrectly loading es module from common js context ([29d171f](https://github.com/JairajJangle/react-native-navigation-mode/commit/29d171f3ce9fd818340ecb0d8d6bfb82042fed0d))
+
+
+### Features
+
+* added support for expo managed workflows ([b60fc17](https://github.com/JairajJangle/react-native-navigation-mode/commit/b60fc17bbfb8d2682d5bc4c3840ce085c1d94a0a))
+
 # [1.2.0-beta.2](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.0-beta.1...v1.2.0-beta.2) (2025-07-21)
 
 

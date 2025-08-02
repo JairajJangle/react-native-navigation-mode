@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.0...v1.2.1) (2025-08-02)
+
+
+### Bug Fixes
+
+* add null check for Android WindowInsets.getInsets() result ([7d18ab5](https://github.com/JairajJangle/react-native-navigation-mode/commit/7d18ab5d0cf12fe45a1639ecb8c624733777003e))
+
 # [1.2.0](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.1.1...v1.2.0) (2025-07-21)
 
 

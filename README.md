@@ -204,14 +204,16 @@ console.log('Navigation bar height:', height); // number (dp)
 
 #### `NavigationModeInfo`
 
-| Property            | Type                                                        | Description                                               |
-| ------------------- | ----------------------------------------------------------- | --------------------------------------------------------- |
-| type                | `'3_button'` or `'2_button'` or `'gesture'` or  `'unknown'` | 4 possible Android navigation modes that can be detected. |
-| isGestureNavigation | `boolean`                                                   | Whether gesture navigation is active.                     |
-| interactionMode     | `number` or `undefined`                                     | See [Interaction Mode Values](#interaction-mode-values)     |
-| navigationBarHeight | `number` or `undefined`                                     | Navigation bar height in density-independent pixels (dp). |
+| Property            | Type                                                        | Description                                                  |
+| ------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| type                | `'3_button'` or `'2_button'` or `'gesture'` or  `'unknown'` | 4 possible Android navigation modes that can be detected     |
+| isGestureNavigation | `boolean`                                                   | Whether gesture navigation is active                         |
+| interactionMode     | `number` or `undefined`                                     | See [Interaction Mode Values](#interaction-mode-values)      |
+| navigationBarHeight | `number`                                                    | Navigation bar height in density-independent pixels (dp). 0 for iOS |
 
 ### Interaction Mode Values
+
+Only available for Android 10 (API 29) or newer.
 
 | Android Mode | Type       | Description                                         |
 | ------------ | ---------- | --------------------------------------------------- |

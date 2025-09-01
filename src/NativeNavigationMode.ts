@@ -4,7 +4,7 @@ import { TurboModuleRegistry, Platform } from 'react-native';
 export interface NavigationModeInfo {
   type: '3_button' | '2_button' | 'gesture' | 'unknown';
   isGestureNavigation: boolean;
-  interactionMode: number;
+  interactionMode?: number;
   navigationBarHeight: number;
 }
 

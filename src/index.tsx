@@ -17,7 +17,6 @@ export function getNavigationMode(): Promise<NavigationModeInfo> {
     return Promise.resolve({
       type: 'gesture',
       isGestureNavigation: true,
-      interactionMode: 2,
       navigationBarHeight: 0, // iOS doesn't have a navigation bar like Android
     });
   }

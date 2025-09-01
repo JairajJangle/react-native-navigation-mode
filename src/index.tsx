@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import NavigationModeModule, {
   type NavigationModeInfo,
 } from './NativeNavigationMode';
@@ -60,11 +60,11 @@ export function getNavigationBarHeight(): Promise<number> {
  */
 export function useNavigationMode() {
   const [navigationMode, setNavigationMode] =
-    React.useState<NavigationModeInfo | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<Error | null>(null);
+    useState<NavigationModeInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let mounted = true;
 
     async function fetchNavigationMode() {

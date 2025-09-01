@@ -5,7 +5,7 @@ export interface NavigationModeInfo {
   type: '3_button' | '2_button' | 'gesture' | 'unknown';
   isGestureNavigation: boolean;
   interactionMode?: number;
-  navigationBarHeight?: number;
+  navigationBarHeight: number;
 }
 
 export interface Spec extends TurboModule {

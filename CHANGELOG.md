@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.1...v1.2.2) (2025-09-01)
+
+
+### Bug Fixes
+
+* potential fix for missing import suggestion ([2fad6a4](https://github.com/JairajJangle/react-native-navigation-mode/commit/2fad6a427df4cdbf3b14328f7d343c7de5478085))
+
 ## [1.2.2-beta.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.1...v1.2.2-beta.1) (2025-09-01)
 
 

@@ -1,8 +1,10 @@
 {
   "name": "react-native-navigation-mode",
-  "version": "1.2.0-beta.2",
+  "version": "1.2.1",
   "description": "Detect Android navigation mode (3-button, 2-button, or gesture)",
   "main": "./lib/module/index.js",
+  "react-native": "./lib/module/index.js",
+  "source": "src/index.tsx",
   "types": "./lib/typescript/src/index.d.ts",
   "files": [
     "src",
@@ -176,5 +178,19 @@
     "languages": "kotlin-objc",
     "type": "turbo-module",
     "version": "0.50.3"
-  }
+  },
+  "funding": [
+    {
+      "type": "individual",
+      "url": "https://www.paypal.com/paypalme/jairajjangle001/usd"
+    },
+    {
+      "type": "individual",
+      "url": "https://liberapay.com/FutureJJ/donate"
+    },
+    {
+      "type": "individual",
+      "url": "https://ko-fi.com/futurejj"
+    }
+  ]
 }

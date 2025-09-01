@@ -30,7 +30,7 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
         if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val insets = activity.window.decorView.rootWindowInsets
             if (insets != null) {
-                val navBar = insets.getInsets(WindowInsets.Type.navigationBars())
+                val navBar = insets.getInsets(WindowInsets.Type.navigationBars()) ?: return 0
                 return (navBar.bottom / density).toInt() // Convert pixels to dp
             }
         }

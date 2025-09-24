@@ -122,19 +122,19 @@ export default function App() {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>🎯 Current Navigation Mode</Text>
 
-          {loading && (
+          {loading ? (
             <View style={styles.loadingContainer}>
               <Text style={styles.loadingText}>Detecting...</Text>
             </View>
-          )}
+          ) : null}
 
-          {error && (
+          {error ? (
             <View style={styles.errorContainer}>
               <Text style={styles.errorText}>❌ {error.message}</Text>
             </View>
-          )}
+          ) : null}
 
-          {navMode && !loading && (
+          {navMode && !loading ? (
             <View style={styles.navigationInfo}>
               <View
                 style={[
@@ -168,30 +168,30 @@ export default function App() {
                   </Text>
                 </View>
 
-                {navMode.interactionMode !== undefined && (
+                {navMode.interactionMode !== undefined ? (
                   <View style={styles.detailItem}>
                     <Text style={styles.detailLabel}>Interaction Mode</Text>
                     <Text style={styles.detailValue}>
                       {navMode.interactionMode}
                     </Text>
                   </View>
-                )}
+                ) : null}
 
-                {navMode.navigationBarHeight !== undefined && (
+                {navMode.navigationBarHeight !== undefined ? (
                   <View style={styles.detailItem}>
                     <Text style={styles.detailLabel}>Height</Text>
                     <Text style={styles.detailValue}>
                       {navMode.navigationBarHeight}dp
                     </Text>
                   </View>
-                )}
+                ) : null}
               </View>
             </View>
-          )}
+          ) : null}
         </View>
 
         {/* Navigation Bar Visualization */}
-        {navMode?.navigationBarHeight && (
+        {navMode?.navigationBarHeight ? (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>📏 Navigation Bar Height</Text>
             <View style={styles.visualizationContainer}>
@@ -213,7 +213,7 @@ export default function App() {
               </Text>
             </View>
           </View>
-        )}
+        ) : null}
 
         <View style={styles.actionContainerTopPaddingView} />
 

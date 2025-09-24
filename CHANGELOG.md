@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.2...v1.2.3) (2025-09-24)
+
+
+### Bug Fixes
+
+* example/Gemfile to reduce vulnerabilities ([f1d9bd5](https://github.com/JairajJangle/react-native-navigation-mode/commit/f1d9bd5111dd5e5351b653a85a1f2297b20de6f0))
+
 ## [1.2.2](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.1...v1.2.2) (2025-09-01)
 
 

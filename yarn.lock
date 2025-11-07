@@ -3039,7 +3039,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/cli@npm:latest":
+"@react-native-community/cli@npm:>=18.0.1":
   version: 20.0.2
   resolution: "@react-native-community/cli@npm:20.0.2"
   dependencies:
@@ -12251,7 +12251,7 @@ __metadata:
     "@babel/core": ^7.25.2
     "@babel/preset-env": ^7.25.3
     "@babel/runtime": ^7.25.0
-    "@react-native-community/cli": latest
+    "@react-native-community/cli": ">=18.0.1"
     "@react-native/babel-preset": 0.79.7
     "@react-native/metro-config": 0.79.7
     "@react-native/typescript-config": 0.79.7

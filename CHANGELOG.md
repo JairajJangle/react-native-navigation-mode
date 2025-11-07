@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.3...v1.2.4) (2025-11-07)
+
+
+### Bug Fixes
+
+* upgraded deps and remove rn cli dep ([536aca4](https://github.com/JairajJangle/react-native-navigation-mode/commit/536aca491f7a747a59fc9e803a53b2a276a21a1e))
+* upgraded rn cli dep ([dbb1a95](https://github.com/JairajJangle/react-native-navigation-mode/commit/dbb1a9504e146f5727c663c7f834434a525dd9e4))
+
 ## [1.2.3](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.2...v1.2.3) (2025-09-24)
 
 

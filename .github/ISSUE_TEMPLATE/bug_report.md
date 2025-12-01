@@ -1,13 +1,13 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+name: Bug Report
+about: Report a bug in 'react-native-navigation-mode'
+title: "[BUG]"
+labels: bug
+assignees: JairajJangle
 
 ---
 
-**Describe the bug**
+**Describe the Bug**
 A clear and concise description of what the bug is.
 
 **To Reproduce**
@@ -17,22 +17,24 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+**Expected Behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Screenshots or Screen records**
+If applicable, add screenshots/screen records to help explain your problem.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+**Environment**
+- Device: [e.g. iPhone12, Samsung Galaxy S21, etc.]
+- OS: [e.g. iOS14.5, Android 11]
+- Version of react-native-navigation-mode: [e.g. 1.0.0]
+- Version of React Native: [e.g. 0.64]
+- Version of Node.js: [e.g. 14.15.0]
+- Version of NPM: [e.g. 7.0.0]
+- Version of expo (if applicable): [e.g. 50.0.0]
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
+**Additional Context**
 Add any other context about the problem here.
+
+---
+
+Remember, the more information you provide, the easier it is for the devs to reproduce and fix the bug!

@@ -13,9 +13,9 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.module.annotations.ReactModule
 
 @ReactModule(name = NavigationModeModule.NAME)
-class NavigationModeModule(reactContext: ReactApplicationContext) : 
+class NavigationModeModule(reactContext: ReactApplicationContext) :
     NativeNavigationModeSpec(reactContext) {
-    
+
     companion object {
         const val NAME = "NavigationMode"
     }
@@ -26,7 +26,7 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
         // Try to get Activity for WindowInsets
         val activity = if (context is Activity) context else reactApplicationContext.currentActivity
         val density = context.resources.displayMetrics.density // Get device density
-        
+
         if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val insets = activity.window.decorView.rootWindowInsets
             if (insets != null) {
@@ -34,7 +34,7 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
                 return (navBar.bottom / density).toInt() // Convert pixels to dp
             }
         }
-        
+
         // Fallback to resource-based approach for API < 30
         val resources = context.resources
         val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
@@ -60,20 +60,21 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
         try {
             val result = Arguments.createMap()
             val context = reactApplicationContext
-            
+
             // Use reactApplicationContext for navigation bar height
             val navBarHeight = getNavigationBarHeight(context)
             result.putInt("navigationBarHeight", navBarHeight)
-            
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val navBarInteractionMode = getNavBarInteractionMode(context)
                 result.putInt("interactionMode", navBarInteractionMode)
                 result.putString("type", getNavigationTypeFromInteractionMode(navBarInteractionMode))
+                result.putBoolean("isGestureNavigation", navBarInteractionMode == 2)
+            } else {
+                val gestureNavEnabled = isGestureNavigationEnabledLegacy(context)
+                result.putBoolean("isGestureNavigation", gestureNavEnabled)
             }
-            
-            val gestureNavEnabled = isGestureNavigationEnabled(context)
-            result.putBoolean("isGestureNavigation", gestureNavEnabled)
-                        
+
             promise.resolve(result)
         } catch (e: Exception) {
             promise.reject("NAVIGATION_MODE_ERROR", "Failed to get navigation mode: ${e.message}", e)
@@ -83,12 +84,12 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
     override fun isGestureNavigation(promise: Promise) {
         try {
             val context = reactApplicationContext
-            
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val navBarInteractionMode = getNavBarInteractionMode(context)
                 promise.resolve(navBarInteractionMode == 2)
             } else {
-                val gestureEnabled = isGestureNavigationEnabled(context)
+                val gestureEnabled = isGestureNavigationEnabledLegacy(context)
                 promise.resolve(gestureEnabled)
             }
         } catch (e: Exception) {
@@ -119,17 +120,17 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
         }
     }
 
-    private fun isGestureNavigationEnabled(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            try {
-                val navBarMode = Settings.Secure.getString(
-                    context.contentResolver,
-                    "navigation_mode"
-                )
-                "2" == navBarMode
-            } catch (e: Exception) {
-                false
-            }
-        } else false
+  private fun isGestureNavigationEnabledLegacy(context: Context): Boolean {
+    // Legacy fallback using Settings.Secure (for pre-Android Q devices)
+    // or as a backup when config_navBarInteractionMode is not available
+    return try {
+      val navBarMode = Settings.Secure.getString(
+        context.contentResolver,
+        "navigation_mode"
+      )
+      "2" == navBarMode
+    } catch (e: Exception) {
+      false
     }
+  }
 }

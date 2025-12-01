@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.4...v1.2.5) (2025-12-01)
+
+
+### Bug Fixes
+
+* resolve inconsistent isGestureNavigation detection on Android devices ([de42453](https://github.com/JairajJangle/react-native-navigation-mode/commit/de4245330d4a0aecef9f648985c19c59c687ff1e))
+
 ## [1.2.4](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.3...v1.2.4) (2025-11-07)
 
 

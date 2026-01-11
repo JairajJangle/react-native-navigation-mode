@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.5...v1.2.6) (2026-01-11)
+
+
+### Bug Fixes
+
+* [#15](https://github.com/JairajJangle/react-native-navigation-mode/issues/15) removed the need to mention expo plugin in app.json ([403b66d](https://github.com/JairajJangle/react-native-navigation-mode/commit/403b66dc5c8291083170563d334fcc8c252b5020))
+
 ## [1.2.5](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.4...v1.2.5) (2025-12-01)
 
 

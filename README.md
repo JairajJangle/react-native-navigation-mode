@@ -73,29 +73,17 @@ npm install react-native-navigation-mode
 npx expo install react-native-navigation-mode
 ```
 
-##### Expo Configuration
-
-Add the plugin to your `app.json` or `app.config.ts`:
-
-```json
-{
-  "expo": {
-    "plugins": [
-      "react-native-navigation-mode"
-    ]
-  }
-}
-```
-
-For bare workflow or custom native code, you'll need to prebuild:
-
-```sh
-npx expo prebuild
-```
-
 ##### Development Builds
 
-Since this library contains native code, it requires a custom development build. You cannot use it with standard Expo Go.
+Since this library contains native code, it requires a [development build](https://docs.expo.dev/develop/development-builds/introduction/). It cannot be used with Expo Go.
+
+```sh
+# Using EAS Build (recommended)
+eas build --profile development --platform android
+
+# Or locally
+npx expo run:android # Should auto-run prebuild if needed
+```
 
 #### Requirements
 
@@ -395,12 +383,6 @@ The library uses multiple detection methods for maximum accuracy:
 
 - This is normal on devices without navigation bars (some tablets)
 - On older Android versions, fallback detection may not work on all devices
-
-**Expo: "Package does not contain a valid config plugin"**
-
-- Ensure you've installed the latest version of the library
-- Try clearing your cache: `npx expo start --clear`
-- Make sure the plugin is added to your `app.json`
 
 ## 🤝 Contributing
 

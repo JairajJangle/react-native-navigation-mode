@@ -16,7 +16,6 @@
     "react-native.config.js",
     "expo-module.config.json",
     "app.plugin.js",
-    "plugin/build",
     "!ios/build",
     "!android/build",
     "!android/gradle",

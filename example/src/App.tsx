@@ -20,11 +20,13 @@ export default function App() {
   // Using the hook
   const { navigationMode, loading, error } = useNavigationMode();
 
+  // Local state to unify hook data with manual refresh updates
+  // This allows both the hook AND manual refresh buttons to update the same state
   const [navMode, setNavMode] = useState<NavigationModeInfo | null>(null);
   const [screenWidth] = useState(Dimensions.get('window').width);
   const [refreshing, setRefreshing] = useState(false);
 
-  // Set navMode from hook when it loads
+  // Sync hook data to local state when it loads
   useEffect(() => {
     if (navigationMode) {
       setNavMode(navigationMode);
@@ -35,18 +37,7 @@ export default function App() {
     try {
       setRefreshing(true);
 
-      // Using manual method to get navigation mode
       const mode = await getNavigationMode();
-      const gesture = await isGestureNavigation();
-      const height = await getNavigationBarHeight();
-
-      setNavMode({
-        isGestureNavigation: gesture,
-        navigationBarHeight: height,
-        interactionMode: mode.interactionMode,
-        type: mode.type,
-      });
-
       setNavMode(mode);
     } catch (err) {
       console.error('Error getting navigation mode:', err);

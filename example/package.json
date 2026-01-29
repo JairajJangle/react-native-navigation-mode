@@ -22,8 +22,8 @@
     "@react-native/metro-config": "0.79.7",
     "@react-native/typescript-config": "0.79.7",
     "@types/react": "^19.0.0",
-    "react-native-builder-bob": "^0.40.11",
-    "react-native-monorepo-config": "^0.1.9"
+    "react-native-builder-bob": "^0.40.17",
+    "react-native-monorepo-config": "^0.1.10"
   },
   "engines": {
     "node": ">=18"

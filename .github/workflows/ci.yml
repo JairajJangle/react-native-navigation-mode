@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - main
+      - beta
   pull_request:
     branches:
       - main
+      - beta
   merge_group:
     types:
       - checks_requested
@@ -170,7 +172,7 @@ jobs:
       issues: write # To comment on released issues
       pull-requests: write # To comment on released pull requests
       id-token: write # To enable use of OIDC for npm provenance
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -193,6 +195,4 @@ jobs:
         run: npx semantic-release  # Run semantic-release to manage versioning and publishing
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
-
-          # Why NODE_AUTH_TOKEN instead of NPM_TOKEN: https://github.com/semantic-release/semantic-release/issues/2313
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}  # npm token for publishing package
+          NPM_CONFIG_PROVENANCE: true

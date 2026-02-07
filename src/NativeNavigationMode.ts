@@ -18,7 +18,14 @@ export interface Spec extends TurboModule {
 // On iOS, we'll handle everything in JavaScript
 const NativeModule =
   Platform.OS === 'android'
-    ? TurboModuleRegistry.getEnforcing<Spec>('NavigationMode')
+    ? TurboModuleRegistry?.getEnforcing
+      ? TurboModuleRegistry.getEnforcing<Spec>('NavigationMode')
+      : (() => {
+        console.error(
+          "['react-native-navigation-mode'] TurboModuleRegistry.getEnforcing is not available. Make sure you have enabled the New Architecture (TurboModules) in your project."
+        );
+        return null;
+      })()
     : null;
 
 export default NativeModule;

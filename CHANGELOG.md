@@ -1,3 +1,10 @@
+## [1.2.7](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.6...v1.2.7) (2026-02-07)
+
+
+### Bug Fixes
+
+* maintenance - dev deps upgraded ([c4de5d1](https://github.com/JairajJangle/react-native-navigation-mode/commit/c4de5d14780e120ab575db841c37db51f24b8506))
+
 ## [1.2.6](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.5...v1.2.6) (2026-01-11)
 
 

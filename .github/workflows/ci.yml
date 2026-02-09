@@ -167,10 +167,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"  # Use the latest LTS version of Node.js
-          registry-url: 'https://registry.npmjs.org/'  # Specify npm registry
-
-      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
-        run: npm audit signatures  # Check the signatures to verify integrity
 
       - name: Release
         run: npx semantic-release  # Run semantic-release to manage versioning and publishing

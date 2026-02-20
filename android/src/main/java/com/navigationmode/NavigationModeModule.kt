@@ -67,9 +67,13 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val navBarInteractionMode = getNavBarInteractionMode(context)
+                val isGesture = if (navBarInteractionMode == 2) true else isGestureNavigationEnabledLegacy(context)
                 result.putInt("interactionMode", navBarInteractionMode)
-                result.putString("type", getNavigationTypeFromInteractionMode(navBarInteractionMode))
-                result.putBoolean("isGestureNavigation", navBarInteractionMode == 2)
+                result.putString(
+                    "type",
+                    if (isGesture) "gesture" else getNavigationTypeFromInteractionMode(navBarInteractionMode)
+                )
+                result.putBoolean("isGestureNavigation", isGesture)
             } else {
                 val gestureNavEnabled = isGestureNavigationEnabledLegacy(context)
                 result.putBoolean("isGestureNavigation", gestureNavEnabled)
@@ -87,7 +91,8 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val navBarInteractionMode = getNavBarInteractionMode(context)
-                promise.resolve(navBarInteractionMode == 2)
+                val isGesture = if (navBarInteractionMode == 2) true else isGestureNavigationEnabledLegacy(context)
+                promise.resolve(isGesture)
             } else {
                 val gestureEnabled = isGestureNavigationEnabledLegacy(context)
                 promise.resolve(gestureEnabled)
@@ -123,14 +128,57 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
   private fun isGestureNavigationEnabledLegacy(context: Context): Boolean {
     // Legacy fallback using Settings.Secure (for pre-Android Q devices)
     // or as a backup when config_navBarInteractionMode is not available
-    return try {
+    try {
       val navBarMode = Settings.Secure.getString(
         context.contentResolver,
         "navigation_mode"
       )
-      "2" == navBarMode
+      if ("2" == navBarMode) {
+        return true
+      }
+      if ("0" == navBarMode || "1" == navBarMode) {
+        return false
+      }
     } catch (e: Exception) {
-      false
+      // Ignore and continue with OEM-specific fallbacks
+    }
+
+    val huaweiNavigationBarMinGlobal = getGlobalIntSetting(context, "navigationbar_is_min")
+    if (huaweiNavigationBarMinGlobal != null) {
+      return huaweiNavigationBarMinGlobal == 1
+    }
+
+    val huaweiSecureGesture = getSecureIntSetting(context, "secure_gesture_navigation")
+    if (huaweiSecureGesture != null) {
+      return huaweiSecureGesture == 1
+    }
+
+    val xiaomiForceGesture = getGlobalIntSetting(context, "force_fsg_nav_bar")
+    if (xiaomiForceGesture != null) {
+      return xiaomiForceGesture == 1
+    }
+
+    val samsungNavigationGesture = getSecureIntSetting(context, "navigation_gesture_on")
+    if (samsungNavigationGesture != null) {
+      return samsungNavigationGesture == 1
+    }
+
+    return false
+  }
+
+  private fun getSecureIntSetting(context: Context, key: String): Int? {
+    return try {
+      Settings.Secure.getInt(context.contentResolver, key)
+    } catch (e: Exception) {
+      null
+    }
+  }
+
+  private fun getGlobalIntSetting(context: Context, key: String): Int? {
+    return try {
+      Settings.Global.getInt(context.contentResolver, key)
+    } catch (e: Exception) {
+      null
     }
   }
 }

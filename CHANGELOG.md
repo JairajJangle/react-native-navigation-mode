@@ -1,3 +1,10 @@
+## [1.2.8](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.7...v1.2.8) (2026-03-08)
+
+
+### Bug Fixes
+
+* **android:** add missing type field for pre-Q devices and improve code clarity ([ea2a03b](https://github.com/JairajJangle/react-native-navigation-mode/commit/ea2a03b98b0ee76111c29ed8eb7cef19ec56612f))
+
 ## [1.2.8-beta.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.7...v1.2.8-beta.1) (2026-03-02)
 
 

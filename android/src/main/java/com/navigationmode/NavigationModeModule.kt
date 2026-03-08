@@ -67,12 +67,18 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val navBarInteractionMode = getNavBarInteractionMode(context)
+                val isGesture = if (navBarInteractionMode == 2) true else isGestureNavigationBySettings(context)
                 result.putInt("interactionMode", navBarInteractionMode)
-                result.putString("type", getNavigationTypeFromInteractionMode(navBarInteractionMode))
-                result.putBoolean("isGestureNavigation", navBarInteractionMode == 2)
+                result.putString(
+                    "type",
+                    if (isGesture) "gesture" else getNavigationTypeFromInteractionMode(navBarInteractionMode)
+                )
+                result.putBoolean("isGestureNavigation", isGesture)
             } else {
-                val gestureNavEnabled = isGestureNavigationEnabledLegacy(context)
+                val gestureNavEnabled = isGestureNavigationBySettings(context)
                 result.putBoolean("isGestureNavigation", gestureNavEnabled)
+                // Set "type" for pre-Q devices so the field is always present in the result
+                result.putString("type", if (gestureNavEnabled) "gesture" else "unknown")
             }
 
             promise.resolve(result)
@@ -87,9 +93,10 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val navBarInteractionMode = getNavBarInteractionMode(context)
-                promise.resolve(navBarInteractionMode == 2)
+                val isGesture = if (navBarInteractionMode == 2) true else isGestureNavigationBySettings(context)
+                promise.resolve(isGesture)
             } else {
-                val gestureEnabled = isGestureNavigationEnabledLegacy(context)
+                val gestureEnabled = isGestureNavigationBySettings(context)
                 promise.resolve(gestureEnabled)
             }
         } catch (e: Exception) {
@@ -120,17 +127,72 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
         }
     }
 
-  private fun isGestureNavigationEnabledLegacy(context: Context): Boolean {
-    // Legacy fallback using Settings.Secure (for pre-Android Q devices)
-    // or as a backup when config_navBarInteractionMode is not available
-    return try {
-      val navBarMode = Settings.Secure.getString(
-        context.contentResolver,
-        "navigation_mode"
-      )
-      "2" == navBarMode
-    } catch (e: Exception) {
-      false
+    // Detects gesture navigation via Settings providers. Used as:
+    //   - The sole detection method on pre-Android Q (API < 29) devices.
+    //   - A supplementary fallback on Android Q+ when config_navBarInteractionMode does not
+    //     return 2, since some OEM firmwares (e.g. Huawei Mate 30 Pro) leave that resource at
+    //     its default value of 0 even after the user enables gesture navigation.
+    private fun isGestureNavigationBySettings(context: Context): Boolean {
+        // Standard AOSP key available on Android 10+ stock and most OEMs.
+        // "2" = gesture, "0" = 3-button, "1" = 2-button.
+        try {
+            val navBarMode = Settings.Secure.getString(
+                context.contentResolver,
+                "navigation_mode"
+            )
+            if ("2" == navBarMode) {
+                return true
+            }
+            if ("0" == navBarMode || "1" == navBarMode) {
+                return false
+            }
+        } catch (e: Exception) {
+            // Ignore and continue with OEM-specific fallbacks
+        }
+
+        // Huawei / Honor EMUI: written to Settings.Global when the user collapses the nav bar
+        // into the gesture handle. Value 1 = gestures enabled.
+        val huaweiNavigationBarMinGlobal = getGlobalIntSetting(context, "navigationbar_is_min")
+        if (huaweiNavigationBarMinGlobal != null) {
+            return huaweiNavigationBarMinGlobal == 1
+        }
+
+        // Huawei / Honor EMUI (alternate key seen on some firmware versions).
+        // Value 1 = gesture navigation enabled.
+        val huaweiSecureGesture = getSecureIntSetting(context, "secure_gesture_navigation")
+        if (huaweiSecureGesture != null) {
+            return huaweiSecureGesture == 1
+        }
+
+        // Xiaomi MIUI: set to 1 when the "full-screen gesture" nav bar is active.
+        val xiaomiForceGesture = getGlobalIntSetting(context, "force_fsg_nav_bar")
+        if (xiaomiForceGesture != null) {
+            return xiaomiForceGesture == 1
+        }
+
+        // Samsung One UI: toggled when the user switches to "Swipe gestures" in nav bar settings.
+        // Value 1 = gesture navigation enabled.
+        val samsungNavigationGesture = getSecureIntSetting(context, "navigation_gesture_on")
+        if (samsungNavigationGesture != null) {
+            return samsungNavigationGesture == 1
+        }
+
+        return false
     }
-  }
+
+    private fun getSecureIntSetting(context: Context, key: String): Int? {
+        return try {
+            Settings.Secure.getInt(context.contentResolver, key)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun getGlobalIntSetting(context: Context, key: String): Int? {
+        return try {
+            Settings.Global.getInt(context.contentResolver, key)
+        } catch (e: Exception) {
+            null
+        }
+    }
 }

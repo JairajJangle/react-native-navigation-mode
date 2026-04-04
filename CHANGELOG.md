@@ -1,3 +1,10 @@
+## [1.2.9](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.8...v1.2.9) (2026-04-04)
+
+
+### Bug Fixes
+
+* **deps:** housekeeping - upgraded some deps ([c1f34ac](https://github.com/JairajJangle/react-native-navigation-mode/commit/c1f34ac0ad967c2cd18a2cf103173126a176f608))
+
 ## [1.2.8](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.7...v1.2.8) (2026-03-08)
 
 

@@ -10,8 +10,8 @@
     "build:ios": "react-native build-ios --mode Debug"
   },
   "dependencies": {
-    "react": "19.2.0",
-    "react-native": "0.83.2"
+    "react": "19.2.4",
+    "react-native": "0.83.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -20,11 +20,11 @@
     "@react-native-community/cli": "20.0.0",
     "@react-native-community/cli-platform-android": "20.0.0",
     "@react-native-community/cli-platform-ios": "20.0.0",
-    "@react-native/babel-preset": "0.83.2",
-    "@react-native/metro-config": "0.83.2",
-    "@react-native/typescript-config": "0.83.2",
-    "@types/react": "^19.2.0",
-    "react-native-monorepo-config": "^0.3.2"
+    "@react-native/babel-preset": "0.83.4",
+    "@react-native/metro-config": "0.83.4",
+    "@react-native/typescript-config": "0.83.4",
+    "@types/react": "^19.2.14",
+    "react-native-monorepo-config": "^0.3.3"
   },
   "engines": {
     "node": ">=18"

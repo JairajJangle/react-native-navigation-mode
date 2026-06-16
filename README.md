@@ -188,6 +188,11 @@ const height = await getNavigationBarHeight();
 console.log('Navigation bar height:', height); // number (dp)
 ```
 
+> **Note**
+> The returned value is the **thickness of the navigation bar on whichever single edge it currently occupies** — the bottom in portrait (and on most tablets), but the **left or right edge in landscape** with 2-/3-button navigation on phones. When you read it through the `useNavigationMode` hook, it updates automatically as the device rotates.
+>
+> Because the bar can sit on a side edge, applying this value blindly as `paddingBottom` is only correct in portrait. For per-edge layout (e.g. landscape), reserve space on the matching edge, or pair it with [`react-native-safe-area-context`](https://github.com/AppAndFlow/react-native-safe-area-context) insets.
+
 ### Types
 
 #### `NavigationModeInfo`
@@ -197,7 +202,7 @@ console.log('Navigation bar height:', height); // number (dp)
 | type                | `'3_button'` or `'2_button'` or `'gesture'` or  `'unknown'` | 4 possible Android navigation modes that can be detected     |
 | isGestureNavigation | `boolean`                                                   | Whether gesture navigation is active                         |
 | interactionMode     | `number` or `undefined`                                     | See [Interaction Mode Values](#interaction-mode-values)      |
-| navigationBarHeight | `number`                                                    | Navigation bar height in density-independent pixels (dp). 0 for iOS |
+| navigationBarHeight | `number`                                                    | Navigation bar thickness in dp, on whichever edge the bar occupies (bottom in portrait, left/right in landscape on phones). 0 for iOS |
 
 ### Interaction Mode Values
 
@@ -225,7 +230,9 @@ export default function AdaptiveUI() {
   return (
     <View 
       style={{
-        // paddingBottom using real navigation bar height
+        // In portrait the nav bar is at the bottom. In landscape on phones the
+        // 2-/3-button bar moves to a side edge — see the note under
+        // `getNavigationBarHeight` for correct per-edge layout.
         paddingBottom: navigationMode?.navigationBarHeight || 0,
       }}>
       {/* Your content */}

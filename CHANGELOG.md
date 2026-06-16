@@ -1,3 +1,10 @@
+## [1.2.10-beta.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.9...v1.2.10-beta.1) (2026-06-16)
+
+
+### Bug Fixes
+
+* report navigation bar height in landscape and update on rotation ([5236c08](https://github.com/JairajJangle/react-native-navigation-mode/commit/5236c089d5f094192cd9133c8d83d2da8e6f9705)), closes [#25](https://github.com/JairajJangle/react-native-navigation-mode/issues/25)
+
 ## [1.2.9](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.8...v1.2.9) (2026-04-04)
 
 

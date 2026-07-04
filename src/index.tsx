@@ -6,6 +6,9 @@ import NavigationModeModule, {
 
 export type { NavigationModeInfo };
 
+// Delay before the post-rotation settle re-fetch (see useNavigationMode).
+const INSETS_SETTLE_DELAY_MS = 250;
+
 /**
  * Get detailed navigation mode information
  * Returns navigation type, interaction mode, and device info
@@ -97,7 +100,10 @@ export function useNavigationMode() {
           setError(err instanceof Error ? err : new Error('Unknown error'));
         }
       } finally {
-        if (mountedRef.current) {
+        // Same latest-wins guard as above: a superseded fetch must not end the
+        // loading state, or consumers would briefly see loading=false with
+        // navigationMode still null.
+        if (mountedRef.current && requestId === requestIdRef.current) {
           setLoading(false);
         }
       }
@@ -106,9 +112,22 @@ export function useNavigationMode() {
     // Initial fetch.
     fetchNavigationMode();
 
+    // Android recalculates and dispatches WindowInsets asynchronously after a
+    // configuration change, so a fetch fired straight from the Dimensions
+    // 'change' event can still read the pre-rotation insets. A single delayed
+    // re-fetch corrects that; the latest-wins guard keeps ordering safe.
+    let settleTimer: ReturnType<typeof setTimeout> | null = null;
+
     // Re-fetch on orientation / window-size change (rotation).
     const dimensionsSub = Dimensions.addEventListener('change', () => {
       fetchNavigationMode();
+      if (settleTimer !== null) {
+        clearTimeout(settleTimer);
+      }
+      settleTimer = setTimeout(() => {
+        settleTimer = null;
+        fetchNavigationMode();
+      }, INSETS_SETTLE_DELAY_MS);
     });
 
     // Re-fetch when the app returns to the foreground.
@@ -120,6 +139,9 @@ export function useNavigationMode() {
 
     return () => {
       mountedRef.current = false;
+      if (settleTimer !== null) {
+        clearTimeout(settleTimer);
+      }
       // RN 0.79+: addEventListener returns an EventSubscription with .remove().
       // Always wrap in an arrow (do not return the bare `.remove` reference) to
       // avoid the lost-`this` crash in facebook/react-native#34508.

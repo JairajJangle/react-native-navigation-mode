@@ -179,6 +179,141 @@ describe('index.tsx', () => {
       expect(result.current.error).toBeNull();
     });
 
+    it('does not flip loading to false from a superseded fetch', async () => {
+      let dimsHandler: ((e: unknown) => void) | undefined;
+      jest
+        .spyOn(Dimensions, 'addEventListener')
+        .mockImplementation((_type, handler) => {
+          dimsHandler = handler as (e: unknown) => void;
+          return { remove: jest.fn() } as unknown as EmitterSubscription;
+        });
+
+      const mock = NativeNavigationMode!.getNavigationMode as jest.Mock;
+      let resolveFirst!: (v: unknown) => void;
+      let resolveSecond!: (v: unknown) => void;
+      mock
+        .mockImplementationOnce(
+          () => new Promise((resolve) => (resolveFirst = resolve))
+        )
+        .mockImplementationOnce(
+          () => new Promise((resolve) => (resolveSecond = resolve))
+        )
+        .mockResolvedValue({ type: '3_button', navigationBarHeight: 24 });
+
+      const { result } = renderHook(() => Module.useNavigationMode());
+      expect(result.current.loading).toBe(true);
+
+      // Rotation fires while the initial fetch is still in flight, superseding it.
+      await act(async () => {
+        dimsHandler?.({
+          window: { width: 800, height: 360, scale: 2, fontScale: 1 },
+          screen: { width: 800, height: 360, scale: 2, fontScale: 1 },
+        });
+      });
+
+      // The superseded initial fetch resolving must not end the loading state:
+      // consumers would briefly see loading=false with navigationMode=null.
+      await act(async () => {
+        resolveFirst({ type: '3_button', navigationBarHeight: 48 });
+      });
+      expect(result.current.loading).toBe(true);
+      expect(result.current.navigationMode).toBeNull();
+
+      await act(async () => {
+        resolveSecond({ type: '3_button', navigationBarHeight: 24 });
+      });
+      await waitFor(() => expect(result.current.loading).toBe(false));
+      expect(result.current.navigationMode).toEqual({
+        type: '3_button',
+        navigationBarHeight: 24,
+      });
+    });
+
+    it('re-fetches again after a short delay post-rotation to catch late inset updates', async () => {
+      jest.useFakeTimers();
+      try {
+        let dimsHandler: ((e: unknown) => void) | undefined;
+        jest
+          .spyOn(Dimensions, 'addEventListener')
+          .mockImplementation((_type, handler) => {
+            dimsHandler = handler as (e: unknown) => void;
+            return { remove: jest.fn() } as unknown as EmitterSubscription;
+          });
+
+        const mock = NativeNavigationMode!.getNavigationMode as jest.Mock;
+        mock
+          .mockResolvedValueOnce({ type: '3_button', navigationBarHeight: 48 }) // initial (portrait)
+          // Rotation fetch: on some devices rootWindowInsets has not updated
+          // yet when Dimensions 'change' fires, so this still reads the
+          // pre-rotation value.
+          .mockResolvedValueOnce({ type: '3_button', navigationBarHeight: 48 })
+          .mockResolvedValue({ type: '3_button', navigationBarHeight: 24 }); // settled
+
+        const { result } = renderHook(() => Module.useNavigationMode());
+        await act(async () => {}); // flush the initial fetch
+        expect(result.current.loading).toBe(false);
+
+        await act(async () => {
+          dimsHandler?.({
+            window: { width: 800, height: 360, scale: 2, fontScale: 1 },
+            screen: { width: 800, height: 360, scale: 2, fontScale: 1 },
+          });
+        });
+        expect(mock).toHaveBeenCalledTimes(2);
+        expect(result.current.navigationMode).toEqual({
+          type: '3_button',
+          navigationBarHeight: 48, // stale — insets had not settled
+        });
+
+        // The delayed settle re-fetch picks up the corrected insets.
+        await act(async () => {
+          jest.advanceTimersByTime(1000);
+        });
+        expect(mock).toHaveBeenCalledTimes(3);
+        expect(result.current.navigationMode).toEqual({
+          type: '3_button',
+          navigationBarHeight: 24,
+        });
+      } finally {
+        jest.useRealTimers();
+      }
+    });
+
+    it('cancels the pending post-rotation settle re-fetch on unmount', async () => {
+      jest.useFakeTimers();
+      try {
+        let dimsHandler: ((e: unknown) => void) | undefined;
+        jest
+          .spyOn(Dimensions, 'addEventListener')
+          .mockImplementation((_type, handler) => {
+            dimsHandler = handler as (e: unknown) => void;
+            return { remove: jest.fn() } as unknown as EmitterSubscription;
+          });
+
+        const mock = NativeNavigationMode!.getNavigationMode as jest.Mock;
+        mock.mockResolvedValue({ type: '3_button', navigationBarHeight: 48 });
+
+        const { unmount } = renderHook(() => Module.useNavigationMode());
+        await act(async () => {}); // flush the initial fetch
+
+        await act(async () => {
+          dimsHandler?.({
+            window: { width: 800, height: 360, scale: 2, fontScale: 1 },
+            screen: { width: 800, height: 360, scale: 2, fontScale: 1 },
+          });
+        });
+        expect(mock).toHaveBeenCalledTimes(2);
+
+        unmount();
+        act(() => {
+          jest.advanceTimersByTime(1000);
+        });
+        expect(mock).toHaveBeenCalledTimes(2); // no fetch after unmount
+      } finally {
+        jest.useRealTimers();
+      }
+    });
+
     it('re-fetches only when AppState becomes active, not on background', async () => {
       let appHandler: ((s: string) => void) | undefined;
       jest

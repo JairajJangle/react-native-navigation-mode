@@ -72,7 +72,7 @@
     "@expo/config-plugins": "^10.1.2",
     "@react-native/babel-preset": "0.79.7",
     "@react-native/eslint-config": "0.79.7",
-    "@release-it/conventional-changelog": "^9.0.4",
+    "@release-it/conventional-changelog": "^11.0.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.6",
@@ -94,7 +94,7 @@
     "react-test-renderer": "19.0.0",
     "release-it": "^19.2.4",
     "semantic-release": "^25.0.3",
-    "turbo": "^1.13.4",
+    "turbo": "^2.9.14",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
@@ -110,6 +110,10 @@
   "workspaces": [
     "example"
   ],
+  "resolutions": {
+    "undici@npm:6.23.0": "6.27.0",
+    "qs@npm:~6.14.0": "6.15.2"
+  },
   "packageManager": "yarn@4.9.2",
   "jest": {
     "preset": "react-native",

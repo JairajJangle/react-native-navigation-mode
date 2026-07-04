@@ -1,3 +1,18 @@
+## [1.2.10-beta.2](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.10-beta.1...v1.2.10-beta.2) (2026-07-04)
+
+
+### Bug Fixes
+
+* **deps:** resolve dependabot alerts in dev tooling ([5edff68](https://github.com/JairajJangle/react-native-navigation-mode/commit/5edff6828d1801c26163b46bb07ced1e49aa4f23))
+* guard loading state and settle insets after rotation ([fb81554](https://github.com/JairajJangle/react-native-navigation-mode/commit/fb815548ac3d75fce4fe80d1f9b0311493483d7d))
+
+## [1.2.10-beta.1](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.9...v1.2.10-beta.1) (2026-06-16)
+
+
+### Bug Fixes
+
+* report navigation bar height in landscape and update on rotation ([5236c08](https://github.com/JairajJangle/react-native-navigation-mode/commit/5236c089d5f094192cd9133c8d83d2da8e6f9705)), closes [#25](https://github.com/JairajJangle/react-native-navigation-mode/issues/25)
+
 ## [1.2.9](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.8...v1.2.9) (2026-04-04)
 
 

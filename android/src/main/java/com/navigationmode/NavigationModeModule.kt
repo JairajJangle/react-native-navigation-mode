@@ -30,17 +30,28 @@ class NavigationModeModule(reactContext: ReactApplicationContext) :
         if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val insets = activity.window.decorView.rootWindowInsets
             if (insets != null) {
-                val navBar = insets.getInsets(WindowInsets.Type.navigationBars()) ?: return 0
-                return (navBar.bottom / density).toInt() // Convert pixels to dp
+                val navBar = insets.getInsets(WindowInsets.Type.navigationBars())
+                // In landscape with 3-/2-button navigation the bar moves to the left or
+                // right edge of the screen, so its thickness is reported in left/right
+                // rather than bottom (which is why bottom-only returned 0 in landscape).
+                // The navigation bar occupies exactly one edge in any orientation, so the
+                // max across edges yields its thickness everywhere (portrait & tablets ->
+                // bottom, landscape phones -> left/right).
+                val navBarSize = maxOf(navBar.left, navBar.top, navBar.right, navBar.bottom)
+                // Round (don't truncate) when converting pixels to dp.
+                return Math.round(navBarSize / density)
             }
         }
 
-        // Fallback to resource-based approach for API < 30
+        // Fallback to resource-based approach for API < 30 (or when rootWindowInsets is
+        // not yet available). Note: this dimen reflects the portrait/bottom-bar height and
+        // may not match a landscape side-bar; the hook re-fetches on rotation so a later
+        // WindowInsets read corrects it on API 30+.
         val resources = context.resources
         val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
         return if (resourceId > 0) {
             // getDimensionPixelSize returns pixels, convert to dp
-            (resources.getDimensionPixelSize(resourceId) / density).toInt()
+            Math.round(resources.getDimensionPixelSize(resourceId) / density)
         } else {
             0 // Fallback for devices without a navigation bar
         }

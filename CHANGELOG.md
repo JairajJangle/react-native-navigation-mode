@@ -1,3 +1,10 @@
+## [1.2.11](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.10...v1.2.11) (2026-08-18)
+
+
+### Bug Fixes
+
+* **deps:** resolve dependabot security alerts ([f117535](https://github.com/JairajJangle/react-native-navigation-mode/commit/f117535cc6770bac8fddecab24b0c7144b61191d))
+
 ## [1.2.10](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.9...v1.2.10) (2026-07-04)
 
 

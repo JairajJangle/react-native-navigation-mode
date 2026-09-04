@@ -1,3 +1,10 @@
+## [1.2.12](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.11...v1.2.12) (2026-09-04)
+
+
+### Bug Fixes
+
+* **android:** skip explicit Kotlin plugin when AGP registers the kotlin extension ([#28](https://github.com/JairajJangle/react-native-navigation-mode/issues/28)) ([b74047d](https://github.com/JairajJangle/react-native-navigation-mode/commit/b74047dde12b74969fc3b0e77468ed8a2e04aa1c))
+
 ## [1.2.11](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.10...v1.2.11) (2026-08-18)
 
 

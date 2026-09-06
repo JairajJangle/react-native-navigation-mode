@@ -1,3 +1,10 @@
+## [1.2.13](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.12...v1.2.13) (2026-09-06)
+
+
+### Bug Fixes
+
+* **deps:** patch xmldom, fast-uri and qs advisories via lockfile refresh ([3e09602](https://github.com/JairajJangle/react-native-navigation-mode/commit/3e096025593402ab6e7accb4167a4d65ac863a2b))
+
 ## [1.2.12](https://github.com/JairajJangle/react-native-navigation-mode/compare/v1.2.11...v1.2.12) (2026-09-04)
 
 
